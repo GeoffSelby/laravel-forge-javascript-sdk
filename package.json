@@ -2,11 +2,17 @@
   "name": "@nevexo/forge-js",
   "version": "0.0.1",
   "description": "A complete, promise-based Javascript SDK for the Laravel Forge API",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "build": "webpack --env dev && webpack --env build && npm run test",
-    "dev": "webpack --progress --colors --watch --env dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run dev",
+    "dev": "npm test -- -w",
+    "init": "mkdir lib",
+    "clean": "rm -rf lib",
+    "prebuild": "npm run clean && npm run init",
+    "build": "babel ./src -d ./lib --ignore test.js",
+    "pretest": "npm run build",
+    "test": "jest",
+    "test:single": "mocha --compilers js:babel-core/register"
   },
   "keywords": [
     "forge",
@@ -17,24 +23,20 @@
   "author": "Geoff Selby <geoff@geoffselby.tech>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "babel-eslint": "^8.0.3",
-    "babel-loader": "^8.0.0-beta.4",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-istanbul": "^5.1.0",
-    "babel-preset-env": "^7.0.0-beta.3",
-    "babel-register": "^7.0.0-beta.3",
-    "cross-env": "^5.2.0",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-loader": "^2.0.0",
-    "jsdom": "11.11.0",
-    "jsdom-global": "3.0.2",
-    "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.12.2",
-    "webpack-cli": "^3.0.8",
-    "yargs": "^10.0.3"
-  }
+    "jest": "^23.6.0",
+    "moxios": "^0.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "files": [
+    "dist"
+  ]
 }
