@@ -2,17 +2,16 @@
   "name": "@nevexo/forge-js",
   "version": "0.0.1",
   "description": "A complete, promise-based Javascript SDK for the Laravel Forge API",
-  "main": "./lib/index.js",
+  "main": "./lib/Forge.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "npm test -- -w",
+    "dev": "npm test",
     "init": "mkdir lib",
     "clean": "rm -rf lib",
     "prebuild": "npm run clean && npm run init",
     "build": "babel ./src -d ./lib --ignore test.js",
     "pretest": "npm run build",
-    "test": "jest",
-    "test:single": "mocha --compilers js:babel-core/register"
+    "test": "jest"
   },
   "keywords": [
     "forge",

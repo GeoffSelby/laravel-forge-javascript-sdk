@@ -10,6 +10,12 @@ class ForgeRequest {
       },
     });
   }
+
+  makeRequest(type, path, payload = null) {
+    return new Promise((resolve, reject) => this.request[type](path, payload)
+      .then(response => resolve(response))
+      .catch(err => reject(err)));
+  }
 }
 
 export default ForgeRequest;

@@ -297,7 +297,7 @@ test('it reactivates a given server', async () => {
   expect(server.status).toEqual(200);
 });
 
-test.only('it gets recent events for all servers', async () => {
+test('it gets recent events for all servers', async () => {
   moxios.stubRequest('/servers/events', {
     response: {
       server_id: 18,
@@ -320,7 +320,7 @@ test.only('it gets recent events for all servers', async () => {
   });
 });
 
-test.only('it gets recent events for a given server', async () => {
+test('it gets recent events for a given server', async () => {
   moxios.stubRequest('/servers/events?server_id=1', {
     response: {
       server_id: 1,

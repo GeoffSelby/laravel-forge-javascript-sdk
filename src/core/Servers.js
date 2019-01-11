@@ -7,75 +7,51 @@ class Servers extends ForgeRequest {
   }
 
   create(payload) {
-    return new Promise((resolve, reject) => this.request.post('/servers', payload)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('post', '/servers', payload);
   }
 
   list() {
-    return new Promise((resolve, reject) => this.request.get('/servers')
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('get', '/servers');
   }
 
   get(id) {
-    return new Promise((resolve, reject) => this.request.get(`/servers/${id}`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('get', `/servers/${id}`);
   }
 
   update(id, payload) {
-    return new Promise((resolve, reject) => this.request.put(`/servers/${id}`, payload)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('put', `/servers/${id}`, payload);
   }
 
   delete(id) {
-    return new Promise((resolve, reject) => this.request.delete(`/servers/${id}`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('delete', `/servers/${id}`);
   }
 
   reboot(id) {
-    return new Promise((resolve, reject) => this.request.post(`/servers/${id}/reboot`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('post', `/servers/${id}/reboot`);
   }
 
   revoke(id) {
-    return new Promise((resolve, reject) => this.request.post(`/servers/${id}/revoke`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('post', `/servers/${id}/revoke`);
   }
 
   reconnect(id) {
-    return new Promise((resolve, reject) => this.request.post(`/servers/${id}/reconnect`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('post', `/servers/${id}/reconnect`);
   }
 
   reactivate(id) {
-    return new Promise((resolve, reject) => this.request.post(`/servers/${id}/reactivate`)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('post', `/servers/${id}/reactivate`);
   }
 
   events(id = null) {
     if (id) {
-      return new Promise((resolve, reject) => this.request.get(`/servers/events?server_id=${id}`)
-        .then(response => resolve(response))
-        .catch(err => reject(err)));
+      return this.makeRequest('get', `/servers/events?server_id=${id}`);
     }
 
-    return new Promise((resolve, reject) => this.request.get('/servers/events')
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('get', '/servers/events');
   }
 
   updateDbPassword(id, payload) {
-    return new Promise((resolve, reject) => this.request.put(`/servers/${id}/database-password`, payload)
-      .then(response => resolve(response))
-      .catch(err => reject(err)));
+    return this.makeRequest('put', `/servers/${id}/database-password`, payload);
   }
 }
 
