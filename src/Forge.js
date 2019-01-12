@@ -6,6 +6,7 @@ import FirewallRules from './core/FirewallRules';
 import Jobs from './core/Jobs';
 import Php from './core/Php';
 import Database from './core/Database';
+import DatabaseUsers from './core/DatabaseUsers';
 
 class Forge {
   constructor(token) {
@@ -18,6 +19,7 @@ class Forge {
     this.jobs = new Jobs(token);
     this.php = new Php(token);
     this.database = new Database(token);
+    this.databaseUsers = new DatabaseUsers(token);
   }
 }
 
