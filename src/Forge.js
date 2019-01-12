@@ -8,6 +8,7 @@ import Php from './core/Php';
 import Database from './core/Database';
 import DatabaseUsers from './core/DatabaseUsers';
 import Sites from './core/Sites';
+import Ssl from './core/Ssl';
 
 class Forge {
   constructor(token) {
@@ -22,6 +23,7 @@ class Forge {
     this.database = new Database(token);
     this.databaseUsers = new DatabaseUsers(token);
     this.sites = new Sites(token);
+    this.ssl = new Ssl(token);
   }
 }
 
