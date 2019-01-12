@@ -4,6 +4,7 @@ import User from './core/User';
 import Daemons from './core/Daemons';
 import FirewallRules from './core/FirewallRules';
 import Jobs from './core/Jobs';
+import Php from './core/Php';
 
 class Forge {
   constructor(token) {
@@ -14,6 +15,7 @@ class Forge {
     this.daemons = new Daemons(token);
     this.firewallRules = new FirewallRules(token);
     this.jobs = new Jobs(token);
+    this.php = new Php(token);
   }
 }
 
