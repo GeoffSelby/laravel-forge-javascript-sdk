@@ -7,6 +7,7 @@ import Jobs from './core/Jobs';
 import Php from './core/Php';
 import Database from './core/Database';
 import DatabaseUsers from './core/DatabaseUsers';
+import Sites from './core/Sites';
 
 class Forge {
   constructor(token) {
@@ -20,6 +21,7 @@ class Forge {
     this.php = new Php(token);
     this.database = new Database(token);
     this.databaseUsers = new DatabaseUsers(token);
+    this.sites = new Sites(token);
   }
 }
 
