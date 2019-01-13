@@ -9,6 +9,7 @@ import Database from './core/Database';
 import DatabaseUsers from './core/DatabaseUsers';
 import Sites from './core/Sites';
 import Ssl from './core/Ssl';
+import Ssh from './core/Ssh';
 
 class Forge {
   constructor(token) {
@@ -24,6 +25,7 @@ class Forge {
     this.databaseUsers = new DatabaseUsers(token);
     this.sites = new Sites(token);
     this.ssl = new Ssl(token);
+    this.ssh = new Ssh(token);
   }
 }
 
