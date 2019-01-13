@@ -11,6 +11,7 @@ import Sites from './core/Sites';
 import Ssl from './core/Ssl';
 import Ssh from './core/Ssh';
 import Workers from './core/Workers';
+import Redirect from './core/Redirect';
 
 class Forge {
   constructor(token) {
@@ -28,6 +29,7 @@ class Forge {
     this.ssl = new Ssl(token);
     this.ssh = new Ssh(token);
     this.workers = new Workers(token);
+    this.redirect = new Redirect(token);
   }
 }
 
