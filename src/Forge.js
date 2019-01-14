@@ -18,6 +18,7 @@ import Git from './core/Git';
 import Wordpress from './core/Wordpress';
 import Webhooks from './core/Webhooks';
 import Recipes from './core/Recipes';
+import Regions from './core/Regions';
 
 class Forge {
   constructor(token) {
@@ -42,6 +43,7 @@ class Forge {
     this.wordpress = new Wordpress(token);
     this.webhooks = new Webhooks(token);
     this.recipes = new Recipes(token);
+    this.regions = new Regions(token);
   }
 }
 
