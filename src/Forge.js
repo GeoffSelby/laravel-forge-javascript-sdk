@@ -13,6 +13,9 @@ import Ssh from './core/Ssh';
 import Workers from './core/Workers';
 import Redirect from './core/Redirect';
 import Deployment from './core/Deployment';
+import Config from './core/Config';
+import Git from './core/Git';
+import Wordpress from './core/Wordpress';
 
 class Forge {
   constructor(token) {
@@ -32,6 +35,9 @@ class Forge {
     this.workers = new Workers(token);
     this.redirect = new Redirect(token);
     this.deployment = new Deployment(token);
+    this.config = new Config(token);
+    this.git = new Git(token);
+    this.wordpress = new Wordpress(token);
   }
 }
 
