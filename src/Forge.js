@@ -16,6 +16,7 @@ import Deployment from './core/Deployment';
 import Config from './core/Config';
 import Git from './core/Git';
 import Wordpress from './core/Wordpress';
+import Webhooks from './core/Webhooks';
 
 class Forge {
   constructor(token) {
@@ -38,6 +39,7 @@ class Forge {
     this.config = new Config(token);
     this.git = new Git(token);
     this.wordpress = new Wordpress(token);
+    this.webhooks = new Webhooks(token);
   }
 }
 
