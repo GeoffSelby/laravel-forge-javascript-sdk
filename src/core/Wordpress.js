@@ -5,6 +5,14 @@ class Wordpress extends ForgeRequest {
     super(token);
     this.token = token;
   }
+
+  install(serverId, siteId, payload) {
+    return this.makeRequest('post', `/servers/${serverId}/sites/${siteId}/wordpress`, payload);
+  }
+
+  uninstall(serverId, siteId) {
+    return this.makeRequest('delete', `/servers/${serverId}/sites/${siteId}/wordpress`);
+  }
 }
 
 export default Wordpress;
