@@ -6,18 +6,18 @@ A complete, promise-based Javascript SDK for the Laravel Forge API
 
 With yarn (*recommended*):
 ``` bash
-yarn add @nevexo/forge-js
+yarn add nevexo-forge-js
 ```
 
 With npm:
 ``` bash
-npm install @nevexo/forge-js
+npm install nevexo-forge-js
 ```
 
 ## Basic Usage
 
 ``` js
-import Forge from '@nevexo/forge-js';
+import Forge from 'nevexo-forge-js';
 
 // Instantiate the SDK
 const forge = new Forge('API_TOKEN_HERE');
