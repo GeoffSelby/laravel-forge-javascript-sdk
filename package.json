@@ -21,6 +21,10 @@
   ],
   "author": "Geoff Selby <geoff@geoffselby.tech>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GeoffSelby/nevexo-forge-javascript-sdk.git"
+  },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
