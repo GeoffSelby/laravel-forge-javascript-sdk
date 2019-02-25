@@ -38,8 +38,5 @@
   },
   "dependencies": {
     "axios": "^0.18.0"
-  },
-  "files": [
-    "lib"
-  ]
+  }
 }
