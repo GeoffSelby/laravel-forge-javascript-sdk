@@ -1,6 +1,6 @@
 {
   "name": "nevexo-forge-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A complete, promise-based Javascript SDK for the Laravel Forge API",
   "main": "./lib/Forge.js",
   "scripts": {
