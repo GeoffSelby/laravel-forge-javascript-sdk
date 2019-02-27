@@ -15,4 +15,4 @@ class Wordpress extends ForgeRequest {
   }
 }
 
-export default Wordpress;
+module.exports = Wordpress;

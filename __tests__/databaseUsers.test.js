@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new database user on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql-users', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql-users', {
     response: {
       user: {
         id: 1,
@@ -47,7 +47,7 @@ test('it creates a new database user on a given server', async () => {
 });
 
 test('it lists all database users on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql-users', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql-users', {
     response: {
       users: [
         {
@@ -82,7 +82,7 @@ test('it lists all database users on a given server', async () => {
 });
 
 test('it gets a given database user on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql-users/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql-users/1', {
     response: {
       user: {
         id: 1,
@@ -113,7 +113,7 @@ test('it gets a given database user on a given server', async () => {
 });
 
 test('it updates a given users database access list', async () => {
-  moxios.stubRequest('/servers/1/mysql-users/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql-users/1', {
     response: {
       user: {
         id: 1,
@@ -148,7 +148,7 @@ test('it updates a given users database access list', async () => {
 });
 
 test('it deletes a database user from a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql-users/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql-users/1', {
     status: 200,
   });
 

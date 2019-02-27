@@ -35,4 +35,4 @@ class Deployment extends ForgeRequest {
   }
 }
 
-export default Deployment;
+module.exports = Deployment;

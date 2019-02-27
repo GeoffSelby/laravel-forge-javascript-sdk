@@ -31,4 +31,4 @@ class Sites extends ForgeRequest {
   }
 }
 
-export default Sites;
+module.exports = Sites;

@@ -4,7 +4,7 @@ class ForgeRequest {
   constructor(token) {
     this.token = token;
     this.request = axios.create({
-      baseUrl: 'https://forge.laravel.com/api/v1',
+      baseURL: 'https://forge.laravel.com/api/v1/',
       headers: {
         'Authorization': `Bearer ${token}`,
         'Accept': 'application/json',
@@ -20,4 +20,4 @@ class ForgeRequest {
   }
 }
 
-export default ForgeRequest;
+module.exports = ForgeRequest;

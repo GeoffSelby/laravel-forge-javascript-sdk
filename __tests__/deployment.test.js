@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it enables quick deployment', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment', {
     status: 200,
   });
 
@@ -21,7 +21,7 @@ test('it enables quick deployment', async () => {
 });
 
 test('it disables quick deployment', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment', {
     status: 200,
   });
 
@@ -32,7 +32,7 @@ test('it disables quick deployment', async () => {
 });
 
 test('it gets the deployment script', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment/script', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment/script', {
     status: 200,
   });
 
@@ -43,7 +43,7 @@ test('it gets the deployment script', async () => {
 });
 
 test('it updates the deployment scipt', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment/script', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment/script', {
     status: 200,
   });
 
@@ -56,7 +56,7 @@ test('it updates the deployment scipt', async () => {
 });
 
 test('it deploys the site', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment/deploy', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment/deploy', {
     status: 200,
   });
 
@@ -67,7 +67,7 @@ test('it deploys the site', async () => {
 });
 
 test('it resets the deployment status', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment/reset', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment/reset', {
     status: 200,
   });
 
@@ -78,7 +78,7 @@ test('it resets the deployment status', async () => {
 });
 
 test('it gets the deployment log', async () => {
-  moxios.stubRequest('/servers/1/sites/1/deployment/log', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/deployment/log', {
     status: 200,
   });
 

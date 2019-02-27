@@ -27,4 +27,4 @@ class Daemons extends ForgeRequest {
   }
 }
 
-export default Daemons;
+module.exports = Daemons;

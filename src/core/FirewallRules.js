@@ -23,4 +23,4 @@ class FirewallRules extends ForgeRequest {
   }
 }
 
-export default FirewallRules;
+module.exports = FirewallRules;

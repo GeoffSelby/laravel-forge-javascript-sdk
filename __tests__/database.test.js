@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 test('it creates a new mysql database on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql', {
     response: {
       database: {
         id: 1,
@@ -38,7 +38,7 @@ test('it creates a new mysql database on a given server', async () => {
 });
 
 test('it lists all mysql databases on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql', {
     response: {
       databases: [
         {
@@ -67,7 +67,7 @@ test('it lists all mysql databases on a given server', async () => {
 });
 
 test('it gets a given database on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/1', {
     response: {
       database: {
         id: 1,
@@ -92,7 +92,7 @@ test('it gets a given database on a given server', async () => {
 });
 
 test('it deletes a given database on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/1', {
     status: 200,
   });
 

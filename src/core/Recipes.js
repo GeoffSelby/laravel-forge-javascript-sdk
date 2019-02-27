@@ -31,4 +31,4 @@ class Recipes extends ForgeRequest {
   }
 }
 
-export default Recipes;
+module.exports = Recipes;

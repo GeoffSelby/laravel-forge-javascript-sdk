@@ -23,4 +23,4 @@ class Redirect extends ForgeRequest {
   }
 }
 
-export default Redirect;
+module.exports = Redirect;

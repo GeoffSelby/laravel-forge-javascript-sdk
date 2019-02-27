@@ -47,4 +47,4 @@ class Ssl extends ForgeRequest {
   }
 }
 
-export default Ssl;
+module.exports = Ssl;

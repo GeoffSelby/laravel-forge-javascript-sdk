@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a webhook', async () => {
-  moxios.stubRequest('/servers/1/sites/1/webhooks', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/webhooks', {
     response: {
       url: 'https://domain.com',
     },
@@ -25,7 +25,7 @@ test('it creates a webhook', async () => {
 });
 
 test('it lists all webhooks', async () => {
-  moxios.stubRequest('/servers/1/sites/1/webhooks', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/webhooks', {
     response: {
       webhooks: [
         {
@@ -52,7 +52,7 @@ test('it lists all webhooks', async () => {
 });
 
 test('it gets a given webhook', async () => {
-  moxios.stubRequest('/servers/1/sites/1/webhooks/10', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/webhooks/10', {
     response: {
       webhook: {
         id: 10,
@@ -75,7 +75,7 @@ test('it gets a given webhook', async () => {
 });
 
 test('it deletes a webhook', async () => {
-  moxios.stubRequest('/servers/1/sites/1/webhooks/10', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/webhooks/10', {
     response: {
       url: 'https://domain.com',
     },

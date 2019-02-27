@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new job on a given server', async () => {
-  moxios.stubRequest('/servers/1/jobs', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs', {
     response: {
       job: {
         id: 2,
@@ -44,7 +44,7 @@ test('it creates a new job on a given server', async () => {
 });
 
 test('it lists all jobs for a given server', async () => {
-  moxios.stubRequest('/servers/1/jobs', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs', {
     response: {
       jobs: [
         {
@@ -79,7 +79,7 @@ test('it lists all jobs for a given server', async () => {
 });
 
 test('it gets a given job for a given server', async () => {
-  moxios.stubRequest('/servers/1/jobs/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs/1', {
     response: {
       job: {
         id: 1,
@@ -110,7 +110,7 @@ test('it gets a given job for a given server', async () => {
 });
 
 test('it deletes a given job for a given server', async () => {
-  moxios.stubRequest('/servers/1/jobs/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs/1', {
     status: 200,
   });
 

@@ -27,4 +27,4 @@ class Workers extends ForgeRequest {
   }
 }
 
-export default Workers;
+module.exports = Workers;

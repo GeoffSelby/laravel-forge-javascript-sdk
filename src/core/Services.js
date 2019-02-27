@@ -51,4 +51,4 @@ class Services extends ForgeRequest {
   }
 }
 
-export default Services;
+module.exports = Services;

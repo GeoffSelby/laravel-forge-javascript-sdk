@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new ssl certificate for a given site', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
     response: {
       certificate: {
         domain: 'domain.com',
@@ -47,7 +47,7 @@ test('it creates a new ssl certificate for a given site', async () => {
 });
 
 test('it installs an existing certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
     response: {
       domain: 'domain.com',
       request_status: 'creating',
@@ -76,7 +76,7 @@ test('it installs an existing certificate', async () => {
 });
 
 test('it clones an existing certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
     response: {
       domain: 'domain.com',
       request_status: 'creating',
@@ -104,7 +104,7 @@ test('it clones an existing certificate', async () => {
 });
 
 test('it obtains a LetsEncrypt certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/letsencrypt', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/letsencrypt', {
     response: {
       certificate: {
         domain: 'www.domain.com',
@@ -141,7 +141,7 @@ test('it obtains a LetsEncrypt certificate', async () => {
 });
 
 test('it lists all certificates', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
     response: {
       certificates: [
         {
@@ -174,7 +174,7 @@ test('it lists all certificates', async () => {
 });
 
 test('it gets a given certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1', {
     response: {
       certificate: {
         domain: 'domain.com',
@@ -203,7 +203,7 @@ test('it gets a given certificate', async () => {
 });
 
 test('it gets the full signing request content', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/1/csr', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/csr', {
     status: 200,
   });
 
@@ -214,7 +214,7 @@ test('it gets the full signing request content', async () => {
 });
 
 test('it installs a certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/1/install', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/install', {
     status: 200,
   });
 
@@ -228,7 +228,7 @@ test('it installs a certificate', async () => {
 });
 
 test('it activates a certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/1/activate', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/activate', {
     status: 200,
   });
 
@@ -239,7 +239,7 @@ test('it activates a certificate', async () => {
 });
 
 test('it deletes a certificate', async () => {
-  moxios.stubRequest('/servers/1/sites/1/certificates/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1', {
     status: 200,
   });
 

@@ -27,4 +27,4 @@ class DatabaseUsers extends ForgeRequest {
   }
 }
 
-export default DatabaseUsers;
+module.exports = DatabaseUsers;

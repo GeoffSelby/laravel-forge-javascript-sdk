@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it reboots mysql on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql/reboot', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/reboot', {
     status: 200,
   });
 
@@ -21,7 +21,7 @@ test('it reboots mysql on a given server', async () => {
 });
 
 test('it stops mysql on a given server', async () => {
-  moxios.stubRequest('/servers/1/mysql/stop', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/stop', {
     status: 200,
   });
 
@@ -32,7 +32,7 @@ test('it stops mysql on a given server', async () => {
 });
 
 test('it reboots nginx on a given server', async () => {
-  moxios.stubRequest('/servers/1/nginx/reboot', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/nginx/reboot', {
     status: 200,
   });
 
@@ -43,7 +43,7 @@ test('it reboots nginx on a given server', async () => {
 });
 
 test('it stops nginx on a given server', async () => {
-  moxios.stubRequest('/servers/1/nginx/stop', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/nginx/stop', {
     status: 200,
   });
 
@@ -54,7 +54,7 @@ test('it stops nginx on a given server', async () => {
 });
 
 test('it reboots postgres on a given server', async () => {
-  moxios.stubRequest('/servers/1/postgres/reboot', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/postgres/reboot', {
     status: 200,
   });
 
@@ -65,7 +65,7 @@ test('it reboots postgres on a given server', async () => {
 });
 
 test('it stops postgres on a given server', async () => {
-  moxios.stubRequest('/servers/1/postgres/stop', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/postgres/stop', {
     status: 200,
   });
 
@@ -76,7 +76,7 @@ test('it stops postgres on a given server', async () => {
 });
 
 test('it reboots PHP on a given server', async () => {
-  moxios.stubRequest('/servers/1/php/reboot', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/php/reboot', {
     status: 200,
   });
 
@@ -87,7 +87,7 @@ test('it reboots PHP on a given server', async () => {
 });
 
 test('it installs Blackfire on a given server', async () => {
-  moxios.stubRequest('/servers/1/blackfire/install', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/blackfire/install', {
     status: 200,
   });
 
@@ -101,7 +101,7 @@ test('it installs Blackfire on a given server', async () => {
 });
 
 test('it removes blackfire from a given server', async () => {
-  moxios.stubRequest('/servers/1/blackfire/remove', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/blackfire/remove', {
     status: 200,
   });
 
@@ -112,7 +112,7 @@ test('it removes blackfire from a given server', async () => {
 });
 
 test('it installs Papertrail on a given server', async () => {
-  moxios.stubRequest('/servers/1/papertrail/install', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/papertrail/install', {
     status: 200,
   });
 
@@ -125,7 +125,7 @@ test('it installs Papertrail on a given server', async () => {
 });
 
 test('it removes Papertrail from a given server', async () => {
-  moxios.stubRequest('/servers/1/papertrail/remove', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/papertrail/remove', {
     status: 200,
   });
 

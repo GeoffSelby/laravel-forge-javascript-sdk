@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new site on a given server', async () => {
-  moxios.stubRequest('/servers/1/sites', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites', {
     response: {
       site: {
         id: 2,
@@ -63,7 +63,7 @@ test('it creates a new site on a given server', async () => {
 });
 
 test('it lists all sites on a given server', async () => {
-  moxios.stubRequest('/servers/1/sites', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites', {
     response: {
       sites: [
         {
@@ -116,7 +116,7 @@ test('it lists all sites on a given server', async () => {
 });
 
 test('it gets a given site on a given server', async () => {
-  moxios.stubRequest('/servers/1/sites/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1', {
     response: {
       site: {
         id: 1,
@@ -165,7 +165,7 @@ test('it gets a given site on a given server', async () => {
 });
 
 test('it updates a given sites path on a given server', async () => {
-  moxios.stubRequest('/servers/1/sites/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1', {
     response: {
       site: {
         id: 1,
@@ -191,7 +191,7 @@ test('it updates a given sites path on a given server', async () => {
 });
 
 test('it deletes a site from a given server', async () => {
-  moxios.stubRequest('/servers/1/sites/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1', {
     status: 200,
   });
 
@@ -202,7 +202,7 @@ test('it deletes a site from a given server', async () => {
 });
 
 test('it updates a given load balancers server list', async () => {
-  moxios.stubRequest('/servers/1/sites/1/balancing', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/balancing', {
     status: 200,
   });
 

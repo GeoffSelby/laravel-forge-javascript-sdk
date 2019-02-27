@@ -11,4 +11,4 @@ class Regions extends ForgeRequest {
   }
 }
 
-export default Regions;
+module.exports = Regions;

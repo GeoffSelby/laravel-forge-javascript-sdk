@@ -11,4 +11,4 @@ class Credentials extends ForgeRequest {
   }
 }
 
-export default Credentials;
+module.exports = Credentials;

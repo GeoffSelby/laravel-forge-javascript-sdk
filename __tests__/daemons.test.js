@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new daemon on a given server', async () => {
-  moxios.stubRequest('/servers/1/daemons', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/daemons', {
     response: {
       daemon: {
         id: 1,
@@ -40,7 +40,7 @@ test('it creates a new daemon on a given server', async () => {
 });
 
 test('it lists all daemons on a given server', async () => {
-  moxios.stubRequest('/servers/1/daemons', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/daemons', {
     response: {
       daemons: [
         {
@@ -71,7 +71,7 @@ test('it lists all daemons on a given server', async () => {
 });
 
 test('it gets a given daemon from a given server', async () => {
-  moxios.stubRequest('/servers/1/daemons/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/daemons/1', {
     response: {
       daemon: {
         id: 1,
@@ -98,7 +98,7 @@ test('it gets a given daemon from a given server', async () => {
 });
 
 test('it deletes a given daemon from a given server', async () => {
-  moxios.stubRequest('/servers/1/daemons/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/daemons/1', {
     status: 200,
   });
 
@@ -109,7 +109,7 @@ test('it deletes a given daemon from a given server', async () => {
 });
 
 test('it restarts a given daemon on a given server', async () => {
-  moxios.stubRequest('/servers/1/daemons/1/restart', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/daemons/1/restart', {
     status: 200,
   });
 

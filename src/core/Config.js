@@ -23,4 +23,4 @@ class Config extends ForgeRequest {
   }
 }
 
-export default Config;
+module.exports = Config;

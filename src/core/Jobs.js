@@ -23,4 +23,4 @@ class Jobs extends ForgeRequest {
   }
 }
 
-export default Jobs;
+module.exports = Jobs;

@@ -11,4 +11,4 @@ class User extends ForgeRequest {
   }
 }
 
-export default User;
+module.exports = User;

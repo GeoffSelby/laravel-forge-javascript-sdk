@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new redirect rule', async () => {
-  moxios.stubRequest('/servers/1/sites/1/redirect-rules', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/redirect-rules', {
     response: {
       redirect_rule: {
         id: 1,
@@ -39,7 +39,7 @@ test('it creates a new redirect rule', async () => {
 });
 
 test('it lists all rules for a given site', async () => {
-  moxios.stubRequest('/servers/1/sites/1/redirect-rules', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/redirect-rules', {
     response: {
       redirect_rules: [
         {
@@ -68,7 +68,7 @@ test('it lists all rules for a given site', async () => {
 });
 
 test('it gets a given rule', async () => {
-  moxios.stubRequest('/servers/1/sites/1/redirect-rules/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/redirect-rules/1', {
     response: {
       redirect_rule: {
         id: 1,
@@ -93,7 +93,7 @@ test('it gets a given rule', async () => {
 });
 
 test('it deletes a given rule', async () => {
-  moxios.stubRequest('/servers/1/sites/1/redirect-rules/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/redirect-rules/1', {
     status: 200,
   });
 

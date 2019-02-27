@@ -23,4 +23,4 @@ class Database extends ForgeRequest {
   }
 }
 
-export default Database;
+module.exports = Database;

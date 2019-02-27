@@ -55,4 +55,4 @@ class Servers extends ForgeRequest {
   }
 }
 
-export default Servers;
+module.exports = Servers;

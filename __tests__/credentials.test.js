@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it lists credentials', async () => {
-  moxios.stubRequest('/credentials', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/credentials', {
     response: {
       credentials: [
         {

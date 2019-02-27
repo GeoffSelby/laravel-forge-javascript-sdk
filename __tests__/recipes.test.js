@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new recipe', async () => {
-  moxios.stubRequest('/recipes', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes', {
     response: {
       recipe: {
         id: 1,
@@ -41,7 +41,7 @@ test('it creates a new recipe', async () => {
 });
 
 test('it lists all recipes', async () => {
-  moxios.stubRequest('/recipes', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes', {
     response: {
       recipes: [
         {
@@ -72,7 +72,7 @@ test('it lists all recipes', async () => {
 });
 
 test('it gets a given recipe', async () => {
-  moxios.stubRequest('/recipes/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes/1', {
     response: {
       recipe: {
         id: 1,
@@ -99,7 +99,7 @@ test('it gets a given recipe', async () => {
 });
 
 test('it updates a given recipe', async () => {
-  moxios.stubRequest('/recipes/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes/1', {
     response: {
       recipe: {
         id: 1,
@@ -130,7 +130,7 @@ test('it updates a given recipe', async () => {
 });
 
 test('it deletes a given recipe', async () => {
-  moxios.stubRequest('/recipes/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes/1', {
     status: 200,
   });
 
@@ -141,7 +141,7 @@ test('it deletes a given recipe', async () => {
 });
 
 test('it runs a given recipe', async () => {
-  moxios.stubRequest('/recipes/1/run', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/recipes/1/run', {
     status: 200,
   });
 

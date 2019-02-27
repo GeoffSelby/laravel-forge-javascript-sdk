@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it gets a given sites Nginx config', async () => {
-  moxios.stubRequest('/servers/1/sites/1/nginx', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/nginx', {
     status: 200,
   });
 
@@ -21,7 +21,7 @@ test('it gets a given sites Nginx config', async () => {
 });
 
 test('it updates a given Nginx config', async () => {
-  moxios.stubRequest('/servers/1/sites/1/nginx', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/nginx', {
     status: 200,
   });
 
@@ -34,7 +34,7 @@ test('it updates a given Nginx config', async () => {
 });
 
 test('it gets a given sites .env file', async () => {
-  moxios.stubRequest('/servers/1/sites/1/env', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/env', {
     status: 200,
   });
 
@@ -45,7 +45,7 @@ test('it gets a given sites .env file', async () => {
 });
 
 test('it updates a given .env file', async () => {
-  moxios.stubRequest('/servers/1/sites/1/env', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/env', {
     status: 200,
   });
 

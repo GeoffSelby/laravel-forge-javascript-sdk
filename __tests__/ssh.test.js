@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new ssh key', async () => {
-  moxios.stubRequest('/servers/1/keys', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys', {
     response: {
       key: {
         id: 1,
@@ -38,7 +38,7 @@ test('it creates a new ssh key', async () => {
 });
 
 test('it lists all keys on a given server', async () => {
-  moxios.stubRequest('/servers/1/keys', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys', {
     response: {
       keys: [
         {
@@ -67,7 +67,7 @@ test('it lists all keys on a given server', async () => {
 });
 
 test('it gets a given key', async () => {
-  moxios.stubRequest('/servers/1/keys/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys/1', {
     response: {
       key: {
         id: 1,
@@ -92,7 +92,7 @@ test('it gets a given key', async () => {
 });
 
 test('it deletes a given key', async () => {
-  moxios.stubRequest('/servers/1/keys/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys/1', {
     status: 200,
   });
 

@@ -23,4 +23,4 @@ class Webhooks extends ForgeRequest {
   }
 }
 
-export default Webhooks;
+module.exports = Webhooks;

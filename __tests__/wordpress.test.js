@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it installs Wordpress', async () => {
-  moxios.stubRequest('/servers/1/sites/1/wordpress', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/wordpress', {
     status: 200,
   });
 
@@ -24,7 +24,7 @@ test('it installs Wordpress', async () => {
 });
 
 test('it uninstalls Wordpress', async () => {
-  moxios.stubRequest('/servers/1/sites/1/wordpress', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/wordpress', {
     status: 200,
   });
 

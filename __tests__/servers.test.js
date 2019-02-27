@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it creates a new server', async () => {
-  moxios.stubRequest('/servers', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers', {
     response: {
       server: {
         id: 16,
@@ -68,7 +68,7 @@ test('it creates a new server', async () => {
 });
 
 test('api returns list of servers', async () => {
-  moxios.stubRequest('/servers', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers', {
     status: 200,
     response: {
       servers: [
@@ -119,7 +119,7 @@ test('api returns list of servers', async () => {
 });
 
 test('it gets a server by server_id', async () => {
-  moxios.stubRequest('/servers/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1', {
     status: 200,
     response: {
       server: {
@@ -165,7 +165,7 @@ test('it gets a server by server_id', async () => {
 });
 
 test('it updates a server by server_id with payload', async () => {
-  moxios.stubRequest('/servers/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1', {
     response: {
       server: {
         id: 1,
@@ -226,7 +226,7 @@ test('it updates a server by server_id with payload', async () => {
 });
 
 test('it updates database password for legacy servers', async () => {
-  moxios.stubRequest('/servers/1/database-password', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/database-password', {
     status: 200,
   });
 
@@ -239,7 +239,7 @@ test('it updates database password for legacy servers', async () => {
 });
 
 test('it deletes a given server', async () => {
-  moxios.stubRequest('/servers/1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1', {
     status: 200,
   });
 
@@ -250,7 +250,7 @@ test('it deletes a given server', async () => {
 });
 
 test('it reboots a given server', async () => {
-  moxios.stubRequest('/servers/1/reboot', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/reboot', {
     status: 200,
   });
 
@@ -261,7 +261,7 @@ test('it reboots a given server', async () => {
 });
 
 test('it revokes Forge access to a given server', async () => {
-  moxios.stubRequest('/servers/1/revoke', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/revoke', {
     status: 200,
   });
 
@@ -272,7 +272,7 @@ test('it revokes Forge access to a given server', async () => {
 });
 
 test('it reconnects a revoked server', async () => {
-  moxios.stubRequest('/servers/1/reconnect', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/reconnect', {
     response: {
       public_key: 'Public key here',
     },
@@ -287,7 +287,7 @@ test('it reconnects a revoked server', async () => {
 });
 
 test('it reactivates a given server', async () => {
-  moxios.stubRequest('/servers/1/reactivate', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/reactivate', {
     status: 200,
   });
 
@@ -298,7 +298,7 @@ test('it reactivates a given server', async () => {
 });
 
 test('it gets recent events for all servers', async () => {
-  moxios.stubRequest('/servers/events', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/events', {
     response: {
       server_id: 18,
       ran_as: 'forge',
@@ -321,7 +321,7 @@ test('it gets recent events for all servers', async () => {
 });
 
 test('it gets recent events for a given server', async () => {
-  moxios.stubRequest('/servers/events?server_id=1', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/events?server_id=1', {
     response: {
       server_id: 1,
       ran_as: 'forge',

@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it installs a new repository', async () => {
-  moxios.stubRequest('/servers/1/sites/1/git', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/git', {
     status: 200,
   });
 
@@ -25,7 +25,7 @@ test('it installs a new repository', async () => {
 });
 
 test('it updates a repository', async () => {
-  moxios.stubRequest('/servers/1/sites/1/git', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/git', {
     status: 200,
   });
 
@@ -40,7 +40,7 @@ test('it updates a repository', async () => {
 });
 
 test('it removes a repository', async () => {
-  moxios.stubRequest('/servers/1/sites/1/git', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/git', {
     status: 200,
   });
 

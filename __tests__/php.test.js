@@ -1,5 +1,5 @@
 import moxios from 'moxios';
-import Forge from '../src/Forge';
+import Forge from '../lib/Forge';
 
 beforeEach(() => {
   moxios.install();
@@ -10,7 +10,7 @@ afterEach(() => {
 });
 
 test('it upgrades Php version on a given server', async () => {
-  moxios.stubRequest('/servers/1/php/upgrade', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/php/upgrade', {
     status: 200,
   });
 
@@ -21,7 +21,7 @@ test('it upgrades Php version on a given server', async () => {
 });
 
 test('it enables OPCache on a given server', async () => {
-  moxios.stubRequest('/servers/1/php/opcache', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/php/opcache', {
     status: 200,
   });
 
@@ -32,7 +32,7 @@ test('it enables OPCache on a given server', async () => {
 });
 
 test('it disables OPCache on a given server', async () => {
-  moxios.stubRequest('/servers/1/php/opcache', {
+  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/php/opcache', {
     status: 200,
   });
 

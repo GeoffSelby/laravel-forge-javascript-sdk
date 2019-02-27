@@ -49,4 +49,4 @@ class Forge {
   }
 }
 
-export default Forge;
+module.exports = Forge;

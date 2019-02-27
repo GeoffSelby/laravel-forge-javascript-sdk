@@ -19,4 +19,4 @@ class Git extends ForgeRequest {
   }
 }
 
-export default Git;
+module.exports = Git;

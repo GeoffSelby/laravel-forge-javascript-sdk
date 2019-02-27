@@ -23,4 +23,4 @@ class Ssh extends ForgeRequest {
   }
 }
 
-export default Ssh;
+module.exports = Ssh;

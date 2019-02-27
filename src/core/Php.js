@@ -19,4 +19,4 @@ class Php extends ForgeRequest {
   }
 }
 
-export default Php;
+module.exports = Php;
