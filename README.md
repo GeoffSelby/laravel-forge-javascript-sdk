@@ -1,7 +1,7 @@
 # Forge JavaScript SDK
 
 <p>
-    <a href="https://travis-ci.org/GeoffSelby/nevexo-forge-javascript-sdk"><img src="https://travis-ci.org/GeoffSelby/nevexo-forge-javascript-sdk.svg?branch=master" alt="Build Status"></a>
+    <a href="https://travis-ci.org/GeoffSelby/nevexo-forge-javascript-sdk"><img src="https://travis-ci.com/GeoffSelby/nevexo-forge-javascript-sdk.svg?branch=master" alt="Build Status"></a>
 </p>
 
 A complete, promise-based Javascript SDK for the Laravel Forge API
