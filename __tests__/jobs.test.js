@@ -1,121 +1,63 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it creates a new job on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs', {
-    response: {
-      job: {
-        id: 2,
-        command: 'COMMAND_THE_JOB_RUNS',
-        user: 'root',
-        frequency: 'Nightly',
-        cron: '0 0 * * *',
-        status: 'installing',
-        created_at: '2016-12-16 15:56:59',
-      },
-    },
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const job = await forge.jobs.create(1, {
+  const payload = {
     command: 'COMMAND',
     frequency: 'nightly',
-  });
+  };
 
-  expect(job.data).toEqual({
-    job: {
-      id: 2,
-      command: 'COMMAND_THE_JOB_RUNS',
-      user: 'root',
-      frequency: 'Nightly',
-      cron: '0 0 * * *',
-      status: 'installing',
-      created_at: '2016-12-16 15:56:59',
-    },
-  });
+  const forge = new Forge('API_TOKEN');
+  await forge.jobs.create(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/jobs', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it lists all jobs for a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs', {
-    response: {
-      jobs: [
-        {
-          id: 2,
-          command: 'COMMAND_THE_JOB_RUNS',
-          user: 'root',
-          frequency: 'Nightly',
-          cron: '0 0 * * *',
-          status: 'installing',
-          created_at: '2016-12-16 15:56:59',
-        },
-      ],
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const jobs = await forge.jobs.list(1);
+  await forge.jobs.list(1);
 
-  expect(jobs.data).toEqual({
-    jobs: [
-      {
-        id: 2,
-        command: 'COMMAND_THE_JOB_RUNS',
-        user: 'root',
-        frequency: 'Nightly',
-        cron: '0 0 * * *',
-        status: 'installing',
-        created_at: '2016-12-16 15:56:59',
-      },
-    ],
-  });
+  expectToHaveBeenCalledWith('/servers/1/jobs', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it gets a given job for a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs/1', {
-    response: {
-      job: {
-        id: 1,
-        command: 'COMMAND_THE_JOB_RUNS',
-        user: 'root',
-        frequency: 'Nightly',
-        cron: '0 0 * * *',
-        status: 'installing',
-        created_at: '2016-12-16 15:56:59',
-      },
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const job = await forge.jobs.get(1, 1);
+  await forge.jobs.get(1, 1);
 
-  expect(job.data).toEqual({
-    job: {
-      id: 1,
-      command: 'COMMAND_THE_JOB_RUNS',
-      user: 'root',
-      frequency: 'Nightly',
-      cron: '0 0 * * *',
-      status: 'installing',
-      created_at: '2016-12-16 15:56:59',
-    },
-  });
+  expectToHaveBeenCalledWith('/servers/1/jobs/1', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it deletes a given job for a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/jobs/1', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
   const job = await forge.jobs.delete(1, 1);
 
-  expect(job.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/jobs/1', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });

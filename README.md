@@ -1,29 +1,29 @@
-# Forge JavaScript SDK
+# Laravel Forge JavaScript SDK
 
-<p>
-    <a href="https://travis-ci.org/GeoffSelby/nevexo-forge-javascript-sdk"><img src="https://travis-ci.com/GeoffSelby/nevexo-forge-javascript-sdk.svg?branch=master" alt="Build Status"></a>
-</p>
+![Travis (.com)](https://img.shields.io/travis/com/GeoffSelby/laravel-forge-javascript-sdk?&style=for-the-badge)
+![npm](https://img.shields.io/npm/v/@geoffcodesthings/forge-js?&style=for-the-badge)
+![NPM](https://img.shields.io/npm/l/@geoffcodesthings/forge-js?style=for-the-badge)
 
-A complete, promise-based Javascript SDK for the Laravel Forge API
+A complete, asynchronous Javascript SDK for the Laravel Forge API
 
 ## Installation
 
 With yarn (_recommended_):
 
 ```bash
-yarn add nevexo-forge-js
+yarn add @geoffcodesthings/forge-js
 ```
 
 With npm:
 
 ```bash
-npm install nevexo-forge-js
+npm install @geoffcodesthings/forge-js
 ```
 
 ## Basic Usage
 
 ```js
-import Forge from 'nevexo-forge-js';
+import Forge from '@geoffcodesthings/forge-js';
 
 // Instantiate the SDK
 const forge = new Forge('API_TOKEN_HERE');
@@ -37,11 +37,9 @@ try {
 }
 ```
 
-> The SDK utilizes native ES6 promises so you should use async/await to handle the resolved promise. You can, of course, use `.then()` and `.catch()` if you prefer.
-
 ## Documentation
 
-Full documentation coming soon. Until then, please see the tests for more detailed usage.
+Full documentation can be found [here](https://laravel-forge-js-sdk.netlify.app).
 
 ## License
 

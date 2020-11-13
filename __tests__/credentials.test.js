@@ -1,37 +1,25 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it lists credentials', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/credentials', {
-    response: {
-      credentials: [
-        {
-          id: 1,
-          type: 'ocean2',
-          name: 'Personal',
-        },
-      ],
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const credentials = await forge.credentials.list();
+  await forge.credentials.list();
 
-  expect(credentials.data).toEqual({
-    credentials: [
-      {
-        id: 1,
-        type: 'ocean2',
-        name: 'Personal',
-      },
-    ],
-  });
+  expectToHaveBeenCalledWith('/credentials', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });

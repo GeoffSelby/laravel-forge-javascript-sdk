@@ -1,30 +1,22 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it creates a new ssl certificate for a given site', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
-    response: {
-      certificate: {
-        domain: 'domain.com',
-        request_status: 'creating',
-        created_at: '2016-12-17 07:02:35',
-        id: 3,
-        existing: false,
-        active: false,
-      },
-    },
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.create(1, 1, {
+  const payload = {
     type: 'new',
     domain: 'domain.com',
     country: 'US',
@@ -32,219 +24,154 @@ test('it creates a new ssl certificate for a given site', async () => {
     city: 'New York',
     organization: 'Company Name',
     department: 'IT',
-  });
+  };
 
-  expect(cert.data).toEqual({
-    certificate: {
-      domain: 'domain.com',
-      request_status: 'creating',
-      created_at: '2016-12-17 07:02:35',
-      id: 3,
-      existing: false,
-      active: false,
-    },
-  });
+  const forge = new Forge('API_TOKEN');
+  await forge.ssl.create(1, 1, payload);
+
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates',
+    'POST',
+    payload,
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it installs an existing certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
-    response: {
-      domain: 'domain.com',
-      request_status: 'creating',
-      created_at: '2016-12-17 07:02:35',
-      id: 3,
-      existing: false,
-      active: false,
-    },
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.installExisting(1, 1, {
+  const payload = {
     type: 'existing',
     key: 'PRIVATE_KEY_HERE',
     certificate: 'CERTIFICATE HERE',
-  });
+  };
 
-  expect(cert.data).toEqual({
-    domain: 'domain.com',
-    request_status: 'creating',
-    created_at: '2016-12-17 07:02:35',
-    id: 3,
-    existing: false,
-    active: false,
-  });
+  const forge = new Forge('API_TOKEN');
+  await forge.ssl.installExisting(1, 1, payload);
+
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates',
+    'POST',
+    payload,
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it clones an existing certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
-    response: {
-      domain: 'domain.com',
-      request_status: 'creating',
-      created_at: '2016-12-17 07:02:35',
-      id: 3,
-      existing: false,
-      active: false,
-    },
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.clone(1, 1, {
+  const payload = {
     type: 'clone',
     certificate_id: 1,
-  });
+  };
 
-  expect(cert.data).toEqual({
-    domain: 'domain.com',
-    request_status: 'creating',
-    created_at: '2016-12-17 07:02:35',
-    id: 3,
-    existing: false,
-    active: false,
-  });
+  const forge = new Forge('API_TOKEN');
+  await forge.ssl.clone(1, 1, payload);
+
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates',
+    'POST',
+    payload,
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it obtains a LetsEncrypt certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/letsencrypt', {
-    response: {
-      certificate: {
-        domain: 'www.domain.com',
-        type: 'letsencrypt',
-        request_status: 'created',
-        status: 'installing',
-        created_at: '2016-12-17 07:02:35',
-        id: 1,
-        existing: true,
-        active: false,
-      },
-    },
-  });
+  setupFetchStub();
+
+  const payload = {
+    domains: ['www.domain.com'],
+  };
 
   const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.letsencrypt(1, 1, {
-    domains: [
-      'www.domain.com',
-    ],
-  });
+  await forge.ssl.letsencrypt(1, 1, payload);
 
-  expect(cert.data).toEqual({
-    certificate: {
-      domain: 'www.domain.com',
-      type: 'letsencrypt',
-      request_status: 'created',
-      status: 'installing',
-      created_at: '2016-12-17 07:02:35',
-      id: 1,
-      existing: true,
-      active: false,
-    },
-  });
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates/letsencrypt',
+    'POST',
+    payload,
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it lists all certificates', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates', {
-    response: {
-      certificates: [
-        {
-          domain: 'domain.com',
-          request_status: 'creating',
-          create_at: '2016-12-17 07:02:35',
-          id: 3,
-          existing: false,
-          active: false,
-        },
-      ],
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const certs = await forge.ssl.list(1, 1);
+  await forge.ssl.list(1, 1);
 
-  expect(certs.data).toEqual({
-    certificates: [
-      {
-        domain: 'domain.com',
-        request_status: 'creating',
-        create_at: '2016-12-17 07:02:35',
-        id: 3,
-        existing: false,
-        active: false,
-      },
-    ],
-  });
+  expectToHaveBeenCalledWith('/servers/1/sites/1/certificates', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it gets a given certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1', {
-    response: {
-      certificate: {
-        domain: 'domain.com',
-        request_status: 'creating',
-        created_at: '2016-12-17 07:02:35',
-        id: 3,
-        existing: false,
-        active: false,
-      },
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.get(1, 1, 1);
+  await forge.ssl.get(1, 1, 1);
 
-  expect(cert.data).toEqual({
-    certificate: {
-      domain: 'domain.com',
-      request_status: 'creating',
-      created_at: '2016-12-17 07:02:35',
-      id: 3,
-      existing: false,
-      active: false,
-    },
-  });
+  expectToHaveBeenCalledWith('/servers/1/sites/1/certificates/1', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it gets the full signing request content', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/csr', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const csr = await forge.ssl.csr(1, 1, 1);
+  await forge.ssl.csr(1, 1, 1);
 
-  expect(csr.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/certificates/1/csr', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it installs a certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/install', {
-    status: 200,
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.install(1, 1, 1, {
+  const payload = {
     certificate: 'CERTIFICATE CONTENT',
     add_intermediates: false,
-  });
+  };
 
-  expect(cert.status).toEqual(200);
+  const forge = new Forge('API_TOKEN');
+  await forge.ssl.install(1, 1, 1, payload);
+
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates/1/install',
+    'POST',
+    payload,
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it activates a certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1/activate', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.activate(1, 1, 1);
+  await forge.ssl.activate(1, 1, 1);
 
-  expect(cert.status).toEqual(200);
+  expectToHaveBeenCalledWith(
+    '/servers/1/sites/1/certificates/1/activate',
+    'POST',
+  );
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it deletes a certificate', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/certificates/1', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const cert = await forge.ssl.delete(1, 1, 1);
+  await forge.ssl.delete(1, 1, 1);
 
-  expect(cert.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/certificates/1', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });

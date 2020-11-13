@@ -1,136 +1,187 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
+});
+
+test('it starts a service', async () => {
+  setupFetchStub();
+
+  const payload = {
+    service: 'service-name',
+  };
+
+  const forge = new Forge('API_TOKEN');
+  await forge.services.startService(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/services/start', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
+test('it stops a service', async () => {
+  setupFetchStub();
+
+  const payload = {
+    service: 'service-name',
+  };
+
+  const forge = new Forge('API_TOKEN');
+  await forge.services.stopService(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/services/stop', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
+test('it restarts a service', async () => {
+  setupFetchStub();
+
+  const payload = {
+    service: 'service-name',
+  };
+
+  const forge = new Forge('API_TOKEN');
+  await forge.services.restartService(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/services/restart', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it reboots mysql on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/reboot', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const rebootMysql = await forge.services.rebootMysql(1);
+  await forge.services.rebootMysql(1);
 
-  expect(rebootMysql.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/mysql/reboot', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it stops mysql on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/mysql/stop', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const stopMysql = await forge.services.stopMysql(1);
+  await forge.services.stopMysql(1);
 
-  expect(stopMysql.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/mysql/stop', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it reboots nginx on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/nginx/reboot', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const rebootNginx = await forge.services.rebootNginx(1);
+  await forge.services.rebootNginx(1);
 
-  expect(rebootNginx.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/nginx/reboot', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it stops nginx on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/nginx/stop', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const stopNginx = await forge.services.stopNginx(1);
+  await forge.services.stopNginx(1);
 
-  expect(stopNginx.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/nginx/stop', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it reboots postgres on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/postgres/reboot', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const rebootPostgres = await forge.services.rebootPostgres(1);
+  await forge.services.rebootPostgres(1);
 
-  expect(rebootPostgres.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/postgres/reboot', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it stops postgres on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/postgres/stop', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const stopPostgres = await forge.services.stopPostgres(1);
+  await forge.services.stopPostgres(1);
 
-  expect(stopPostgres.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/postgres/stop', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it reboots PHP on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/php/reboot', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const rebootPhp = await forge.services.rebootPhp(1);
+  await forge.services.rebootPhp(1);
 
-  expect(rebootPhp.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/php/reboot', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it installs Blackfire on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/blackfire/install', {
-    status: 200,
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const blackfire = await forge.services.installBlackfire(1, {
+  const payload = {
     server_id: 'SAMPLE ID',
     server_token: 'SAMPLE TOKEN',
-  });
+  };
 
-  expect(blackfire.status).toEqual(200);
+  const forge = new Forge('API_TOKEN');
+  await forge.services.installBlackfire(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/blackfire/install', 'POST', payload);
 });
 
 test('it removes blackfire from a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/blackfire/remove', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const blackfire = await forge.services.removeBlackfire(1);
+  await forge.services.removeBlackfire(1);
 
-  expect(blackfire.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/blackfire/remove', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it installs Papertrail on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/papertrail/install', {
-    status: 200,
-  });
+  setupFetchStub();
+
+  const payload = {
+    host: '192.241.143.108',
+  };
 
   const forge = new Forge('API_TOKEN');
-  const papertrail = await forge.services.installPapertrail(1, {
-    hose: '192.241.143.108',
-  });
+  await forge.services.installPapertrail(1, payload);
 
-  expect(papertrail.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/papertrail/install', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it removes Papertrail from a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/papertrail/remove', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const papertrail = await forge.services.removePapertrail(1);
+  await forge.services.removePapertrail(1);
 
-  expect(papertrail.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/papertrail/remove', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });

@@ -1,35 +1,41 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it installs Wordpress', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/wordpress', {
-    status: 200,
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const wordpress = await forge.wordpress.install(1, 1, {
+  const payload = {
     database: 'forge',
     user: 1,
-  });
+  };
 
-  expect(wordpress.status).toEqual(200);
+  const forge = new Forge('API_TOKEN');
+  await forge.wordpress.install(1, 1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/sites/1/wordpress', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it uninstalls Wordpress', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/wordpress', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const wordpress = await forge.wordpress.uninstall(1, 1);
+  await forge.wordpress.uninstall(1, 1);
 
-  expect(wordpress.status).toEqual(200);
-})
+  expectToHaveBeenCalledWith('/servers/1/sites/1/wordpress', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});

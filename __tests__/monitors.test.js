@@ -13,50 +13,54 @@ afterEach(() => {
   global.fetch.mockReset();
 });
 
-test('it creates a new mysql database on a given server', async () => {
+test('it creates a monitor', async () => {
   setupFetchStub();
 
   const payload = {
-    name: 'forge',
+    type: 'cpu_load',
+    operator: 'gte',
+    threshold: '1.3',
+    minutes: '5',
+    notify: 'forge@laravel.com',
   };
 
   const forge = new Forge('API_TOKEN');
-  await forge.database.create(1, payload);
+  await forge.monitors.create(1, payload);
 
-  expectToHaveBeenCalledWith('/servers/1/databases', 'POST', payload);
-
-  expect(window.fetch).toHaveBeenCalledTimes(1);
-});
-
-test('it lists all mysql databases on a given server', async () => {
-  setupFetchStub();
-
-  const forge = new Forge('API_TOKEN');
-  await forge.database.list(1);
-
-  expectToHaveBeenCalledWith('/servers/1/databases', 'GET');
+  expectToHaveBeenCalledWith('/servers/1/monitors', 'POST', payload);
 
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
-test('it gets a given database on a given server', async () => {
+test('it lists a servers monitors', async () => {
   setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  await forge.database.get(1, 1);
+  await forge.monitors.list(1);
 
-  expectToHaveBeenCalledWith('/servers/1/databases/1', 'GET');
+  expectToHaveBeenCalledWith('/servers/1/monitors', 'GET');
 
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
-test('it deletes a given database on a given server', async () => {
+test('it gets a single monitor', async () => {
   setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  await forge.database.delete(1, 1);
+  await forge.monitors.get(1, 1);
 
-  expectToHaveBeenCalledWith('/servers/1/databases/1', 'DELETE');
+  expectToHaveBeenCalledWith('/servers/1/monitors/1', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
+test('it deletes a given monitor', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.monitors.delete(1, 1);
+
+  expectToHaveBeenCalledWith('/servers/1/monitors/1', 'DELETE');
 
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });

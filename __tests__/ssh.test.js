@@ -1,103 +1,63 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it creates a new ssh key', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys', {
-    response: {
-      key: {
-        id: 1,
-        name: 'test-key',
-        status: 'installing',
-        created_at: '2016-12-16 16:31:16',
-      },
-    },
-  });
+  setupFetchStub();
 
-  const forge = new Forge('API_TOKEN');
-  const key = await forge.ssh.create(1, {
+  const payload = {
     name: 'test-key',
     key: 'KEY_CONTENT_HERE',
-  });
+  };
 
-  expect(key.data).toEqual({
-    key: {
-      id: 1,
-      name: 'test-key',
-      status: 'installing',
-      created_at: '2016-12-16 16:31:16',
-    },
-  });
+  const forge = new Forge('API_TOKEN');
+  await forge.ssh.create(1, payload);
+
+  expectToHaveBeenCalledWith('/servers/1/keys', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it lists all keys on a given server', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys', {
-    response: {
-      keys: [
-        {
-          id: 1,
-          name: 'test-key',
-          status: 'installing',
-          created_at: '2016-12-16 16:31:16',
-        },
-      ],
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const keys = await forge.ssh.list(1);
+  await forge.ssh.list(1);
 
-  expect(keys.data).toEqual({
-    keys: [
-      {
-        id: 1,
-        name: 'test-key',
-        status: 'installing',
-        created_at: '2016-12-16 16:31:16',
-      },
-    ],
-  });
+  expectToHaveBeenCalledWith('/servers/1/keys', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it gets a given key', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys/1', {
-    response: {
-      key: {
-        id: 1,
-        name: 'test-key',
-        status: 'installing',
-        created_at: '2016-12-16 16:31:16',
-      },
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const key = await forge.ssh.get(1, 1);
+  await forge.ssh.get(1, 1);
 
-  expect(key.data).toEqual({
-    key: {
-      id: 1,
-      name: 'test-key',
-      status: 'installing',
-      created_at: '2016-12-16 16:31:16',
-    },
-  });
+  expectToHaveBeenCalledWith('/servers/1/keys/1', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it deletes a given key', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/keys/1', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
   const key = await forge.ssh.delete(1, 1);
 
-  expect(key.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/keys/1', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });

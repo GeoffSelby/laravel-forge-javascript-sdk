@@ -1,59 +1,25 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it lists regions', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/regions', {
-    response: {
-      regions: {
-        ocean2: [
-          {
-            id: 'ams2',
-            name: 'Amsterdam 2',
-            sizes: [
-              {
-                id: '01',
-                size: 's-1vcpu-1gb',
-                name: '1GB RAM - 1 CPU Core - 25GB SSD',
-              },
-            ],
-          },
-        ],
-        linode: [],
-        vultr: [],
-        aws: [],
-      },
-    },
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const regions = await forge.regions.list();
+  await forge.regions.list();
 
-  expect(regions.data).toEqual({
-    regions: {
-      ocean2: [
-        {
-          id: 'ams2',
-          name: 'Amsterdam 2',
-          sizes: [
-            {
-              id: '01',
-              size: 's-1vcpu-1gb',
-              name: '1GB RAM - 1 CPU Core - 25GB SSD',
-            },
-          ],
-        },
-      ],
-      linode: [],
-      vultr: [],
-      aws: [],
-    },
-  });
+  expectToHaveBeenCalledWith('/regions', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
