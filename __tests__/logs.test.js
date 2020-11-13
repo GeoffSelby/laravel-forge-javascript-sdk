@@ -13,13 +13,13 @@ afterEach(() => {
   global.fetch.mockReset();
 });
 
-test('it gets user information', async () => {
+test('it gets a servers logs', async () => {
   setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  await forge.user.get();
+  await forge.logs.get(1, 'php73');
 
-  expectToHaveBeenCalledWith('/user', 'GET');
+  expectToHaveBeenCalledWith('/servers/1/logs?file=php73', 'GET');
 
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });

@@ -1,58 +1,66 @@
-import moxios from 'moxios';
-import Forge from '../lib/Forge';
+const {
+  setupFetchStub,
+  expectToHaveBeenCalledWith,
+} = require('./stub/fetchStub');
+const Forge = require('../lib/Forge');
 
-beforeEach(() => {
-  moxios.install();
+beforeAll(() => {
+  require('cross-fetch/polyfill');
+  jest.spyOn(window, 'fetch');
 });
 
 afterEach(() => {
-  moxios.uninstall();
+  global.fetch.mockReset();
 });
 
 test('it gets a given sites Nginx config', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/nginx', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const config = await forge.config.getNginx(1, 1);
+  await forge.config.getNginx(1, 1);
 
-  expect(config.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/nginx', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it updates a given Nginx config', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/nginx', {
-    status: 200,
-  });
+  setupFetchStub();
+
+  const payload = {
+    content: 'CONTENT',
+  };
 
   const forge = new Forge('API_TOKEN');
-  const config = await forge.config.updateNginx(1, 1, {
-    content: 'CONTENT',
-  });
+  await forge.config.updateNginx(1, 1, payload);
 
-  expect(config.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/nginx', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it gets a given sites .env file', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/env', {
-    status: 200,
-  });
+  setupFetchStub();
 
   const forge = new Forge('API_TOKEN');
-  const env = await forge.config.getEnv(1, 1);
+  await forge.config.getEnv(1, 1);
 
-  expect(env.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/env', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
 test('it updates a given .env file', async () => {
-  moxios.stubRequest('https://forge.laravel.com/api/v1/servers/1/sites/1/env', {
-    status: 200,
-  });
+  setupFetchStub();
+
+  const payload = {
+    content: 'CONTENT',
+  };
 
   const forge = new Forge('API_TOKEN');
-  const env = await forge.config.updateEnv(1, 1, {
-    content: 'CONTENT',
-  });
+  await forge.config.updateEnv(1, 1, payload);
 
-  expect(env.status).toEqual(200);
+  expectToHaveBeenCalledWith('/servers/1/sites/1/env', 'POST', payload);
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
 });
