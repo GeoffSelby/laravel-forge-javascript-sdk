@@ -2,7 +2,6 @@
 
 ![Travis (.com)](https://img.shields.io/travis/com/GeoffSelby/laravel-forge-javascript-sdk?&style=for-the-badge)
 ![npm](https://img.shields.io/npm/v/@geoffcodesthings/forge-js?&style=for-the-badge)
-![NPM](https://img.shields.io/npm/l/@geoffcodesthings/forge-js?style=for-the-badge)
 
 A complete, asynchronous Javascript SDK for the Laravel Forge API
 
