@@ -335,6 +335,17 @@ class Forge extends ForgeRequest {
     };
   }
 
+  get commands() {
+    return {
+      execute: (serverId, siteId, payload) =>
+        this.post(`/servers/${serverId}/sites/${siteId}/commands`, payload),
+      list: (serverId, siteId) =>
+        this.get(`/servers/${serverId}/sites/${siteId}/commands`),
+      get: (serverId, siteId, commandId) =>
+        this.get(`/servers/${serverId}/sites/${siteId}/commands/${commandId}`),
+    };
+  }
+
   get wordpress() {
     return {
       install: (serverId, siteId, payload) =>
