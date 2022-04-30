@@ -168,6 +168,8 @@ class Forge extends ForgeRequest {
         this.put(`/servers/${serverId}/sites/${siteId}/aliases`, payload),
       balance: (serverId, siteId, payload) =>
         this.put(`/servers/${serverId}/sites/${siteId}/balancing`, payload),
+      getBalance: (serverId, siteId) =>
+        this.get(`/servers/${serverId}/sites/${siteId}/balancing`),
       log: (serverId, siteId) =>
         this.get(`/servers/${serverId}/sites/${siteId}/logs`),
     };

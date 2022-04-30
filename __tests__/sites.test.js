@@ -94,6 +94,17 @@ test('it updates a given load balancers server list', async () => {
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
+test('it gets load balancing for a site', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.sites.getBalance(1, 1);
+
+  expectToHaveBeenCalledWith('/servers/1/sites/1/balancing', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
 test('it changes php version', async () => {
   setupFetchStub();
 
