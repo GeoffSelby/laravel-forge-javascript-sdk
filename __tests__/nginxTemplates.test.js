@@ -40,6 +40,17 @@ test('it lists all nginx templates', async () => {
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
+test('it gets the default nginx template', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.nginxTemplates.get(1, 1);
+
+  expectToHaveBeenCalledWith('/servers/1/nginx/templates/1', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
 test('it gets a nginx template', async () => {
   setupFetchStub();
 

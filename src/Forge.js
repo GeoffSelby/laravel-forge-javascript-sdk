@@ -140,6 +140,8 @@ class Forge extends ForgeRequest {
       create: (serverId, payload) =>
         this.post(`/servers/${serverId}/nginx/templates`, payload),
       list: (serverId) => this.get(`/servers/${serverId}/nginx/templates`),
+      getDefault: (serverId, templateId) =>
+        this.get(`/servers/${serverId}/nginx/templates/${templateId}`),
       get: (serverId, templateId) =>
         this.get(`/servers/${serverId}/nginx/templates/${templateId}`),
       update: (serverId, templateId, payload) =>
