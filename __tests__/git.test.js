@@ -57,3 +57,25 @@ test('it removes a repository', async () => {
 
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
+
+test('it creates a deploy key', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.git.createDeployKey(1, 1);
+
+  expectToHaveBeenCalledWith('/servers/1/sites/1/deploy-key', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
+test('it removes a deploy key', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.git.deleteDeployKey(1, 1);
+
+  expectToHaveBeenCalledWith('/servers/1/sites/1/deploy-key', 'DELETE');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
