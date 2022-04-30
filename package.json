@@ -1,6 +1,6 @@
 {
   "name": "@geoffcodesthings/forge-js",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A complete, asynchronous Javascript SDK for the Laravel Forge API",
   "main": "./lib/Forge.js",
   "scripts": {
