@@ -28,6 +28,17 @@ test('it creates a new mysql database on a given server', async () => {
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
+test('it syncs a database on a given server', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.database.sync(1);
+
+  expectToHaveBeenCalledWith('/servers/1/databases/sync', 'POST');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
 test('it lists all mysql databases on a given server', async () => {
   setupFetchStub();
 

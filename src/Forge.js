@@ -112,6 +112,7 @@ class Forge extends ForgeRequest {
     return {
       create: (serverId, payload) =>
         this.post(`/servers/${serverId}/databases`, payload),
+      sync: (serverId) => this.post(`/servers/${serverId}/databases/sync`),
       list: (serverId) => this.get(`/servers/${serverId}/databases`),
       get: (serverId, databaseId) =>
         this.get(`/servers/${serverId}/databases/${databaseId}`),
