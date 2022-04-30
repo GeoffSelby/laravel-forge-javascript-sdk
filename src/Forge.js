@@ -43,6 +43,7 @@ class Forge extends ForgeRequest {
       stopMysql: (id) => this.post(`/servers/${id}/mysql/stop`),
       rebootNginx: (id) => this.post(`/servers/${id}/nginx/reboot`),
       stopNginx: (id) => this.post(`/servers/${id}/nginx/stop`),
+      testNginx: (id) => this.get(`/servers/${id}/nginx/test`),
       rebootPostgres: (id) => this.post(`/servers/${id}/postgres/reboot`),
       stopPostgres: (id) => this.post(`/servers/${id}/postgres/stop`),
       rebootPhp: (id, payload) =>

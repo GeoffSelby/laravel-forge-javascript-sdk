@@ -102,6 +102,17 @@ test('it stops nginx on a given server', async () => {
   expect(window.fetch).toHaveBeenCalledTimes(1);
 });
 
+test('it tests nginx on a given server', async () => {
+  setupFetchStub();
+
+  const forge = new Forge('API_TOKEN');
+  await forge.services.testNginx(1);
+
+  expectToHaveBeenCalledWith('/servers/1/nginx/test', 'GET');
+
+  expect(window.fetch).toHaveBeenCalledTimes(1);
+});
+
 test('it reboots postgres on a given server', async () => {
   setupFetchStub();
 
