@@ -204,7 +204,9 @@ class Forge extends ForgeRequest {
       activate: (serverId, siteId, certId) =>
         this.post(
           `/servers/${serverId}/sites/${siteId}/certificates/${certId}/activate`,
-          {parseResponse: false},
+          undefined,
+          {},
+          false,
         ),
       delete: (serverId, siteId, certId) =>
         this.delete(
@@ -288,7 +290,7 @@ class Forge extends ForgeRequest {
       disable: (serverId, siteId) =>
         this.delete(`/servers/${serverId}/sites/${siteId}/deployment`),
       getScript: (serverId, siteId) =>
-        this.get(`/servers/${serverId}/sites/${siteId}/deployment/script`, {parseResponse: false}),
+        this.get(`/servers/${serverId}/sites/${siteId}/deployment/script`, {}, false),
       updateScript: (serverId, siteId, payload) =>
         this.put(
           `/servers/${serverId}/sites/${siteId}/deployment/script`,
@@ -321,13 +323,13 @@ class Forge extends ForgeRequest {
   get config() {
     return {
       getNginx: (serverId, siteId) =>
-        this.get(`/servers/${serverId}/sites/${siteId}/nginx`, {parseResponse: false}),
+        this.get(`/servers/${serverId}/sites/${siteId}/nginx`,{}, false),
       updateNginx: (serverId, siteId, payload) =>
-        this.put(`/servers/${serverId}/sites/${siteId}/nginx`, payload, {parseResponse: false}),
+        this.put(`/servers/${serverId}/sites/${siteId}/nginx`, payload, {}, false),
       getEnv: (serverId, siteId) =>
-        this.get(`/servers/${serverId}/sites/${siteId}/env`, {parseResponse: false}),
+        this.get(`/servers/${serverId}/sites/${siteId}/env`, {}, false),
       updateEnv: (serverId, siteId, payload) =>
-        this.put(`/servers/${serverId}/sites/${siteId}/env`, payload, {parseResponse: false}),
+        this.put(`/servers/${serverId}/sites/${siteId}/env`, payload, {}, false),
     };
   }
 
