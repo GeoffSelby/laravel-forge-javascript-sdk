@@ -6,6 +6,7 @@ exports.setupFetchStub = () => {
         Promise.resolve({
           status: 200,
         }),
+      text: () => Promise.resolve('Sample response text'),
     };
     return Promise.resolve(fetchResponse);
   });
