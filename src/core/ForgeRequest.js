@@ -21,7 +21,7 @@ class ForgeRequest {
     if (options.parseResponse !== false && res.status !== 204)
       return res.json();
 
-    return undefined;
+    return res.text();
   }
 
   get(endpoint, options = {}) {
